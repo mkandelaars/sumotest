@@ -11,8 +11,9 @@ WORKDIR /opt/sumo
 RUN pipenv install --system
 RUN apk update && apk add bash
 USER root
+CMD ["python", "./sleep.py"]
 
-CMD ["ping", "localhost"]
+#CMD ["ping", "localhost"]
 
 #CMD ["/bin/bash"]
 #ENTRYPOINT ["/bin/sh"]
