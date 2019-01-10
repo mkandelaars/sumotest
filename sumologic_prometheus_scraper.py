@@ -223,13 +223,13 @@ class SumoPrometheusScraper:
         adapter = SumoHTTPAdapter(config, max_retries=sumo_retry)
         self._sumo_session.mount("http://", adapter)
         self._sumo_session.mount("https://", adapter)
+        self._scrape_session.verify = False
 
         if "token_file_path" in self._config:
             with open(self._config["token_file_path"]) as f:
                 token = f.read().strip()
             self._scrape_session.headers["Authorization"] = f"Bearer {token}"
        # if "verify" in self._config:
-            self._scrape_session.verify = False
 
     def _parsed_samples(self, prometheus_metrics: str, scrape_ts: int):
         for metric_family in text_string_to_metric_families(prometheus_metrics):
