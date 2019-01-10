@@ -112,7 +112,6 @@ class SumoPrometheusScraperConfig:
                 Required("batch_size", default=1000): All(int, Range(min=1)),
                 Required("retries", default=5): All(int, Range(min=1, max=20)),
                 Required("backoff_factor", default=0.2): All(float, Range(min=0)),
-                "verify": str,
                 "source_category": str,
                 "source_host": str,
                 "source_name": str,
@@ -223,13 +222,13 @@ class SumoPrometheusScraper:
         adapter = SumoHTTPAdapter(config, max_retries=sumo_retry)
         self._sumo_session.mount("http://", adapter)
         self._sumo_session.mount("https://", adapter)
-        self._scrape_session.verify = False
 
         if "token_file_path" in self._config:
             with open(self._config["token_file_path"]) as f:
                 token = f.read().strip()
             self._scrape_session.headers["Authorization"] = f"Bearer {token}"
-       # if "verify" in self._config:
+        if "verify" in self._config:
+            self._scrape_session.verify = self._config["verify"]
 
     def _parsed_samples(self, prometheus_metrics: str, scrape_ts: int):
         for metric_family in text_string_to_metric_families(prometheus_metrics):
