@@ -228,8 +228,8 @@ class SumoPrometheusScraper:
             with open(self._config["token_file_path"]) as f:
                 token = f.read().strip()
             self._scrape_session.headers["Authorization"] = f"Bearer {token}"
-        if "verify" in self._config:
-            self._scrape_session.verify = self._config["verify"]
+       # if "verify" in self._config:
+            self._scrape_session.verify = False
 
     def _parsed_samples(self, prometheus_metrics: str, scrape_ts: int):
         for metric_family in text_string_to_metric_families(prometheus_metrics):
