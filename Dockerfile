@@ -12,8 +12,7 @@ RUN pipenv install --system
 RUN apk update && apk add bash
 USER root
 
-
-ENTRYPOINT exec ping localhost
+CMD ["ping", "localhost"]
 
 #CMD ["/bin/bash"]
 #ENTRYPOINT ["/bin/sh"]
