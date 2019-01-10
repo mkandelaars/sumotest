@@ -112,6 +112,7 @@ class SumoPrometheusScraperConfig:
                 Required("batch_size", default=1000): All(int, Range(min=1)),
                 Required("retries", default=5): All(int, Range(min=1, max=20)),
                 Required("backoff_factor", default=0.2): All(float, Range(min=0)),
+                "verify": str,
                 "source_category": str,
                 "source_host": str,
                 "source_name": str,
