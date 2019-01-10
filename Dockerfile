@@ -9,7 +9,7 @@ COPY . /opt/sumo/
 WORKDIR /opt/sumo
 
 RUN pipenv install --system
-RUN apk update && apk add bash
+RUN apk update && apk add bash curl
 USER root
 CMD ["python", "./sleep.py"]
 
